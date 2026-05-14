@@ -13,7 +13,7 @@
 }
 
 body {
-  --size-width-card: 200px;
+  --size-width-card: 200px; /* or 10vw (responsive) */
   --size-height-card: calc(var(--size-width-card) * 1.4);
   --size-width-chest: var(--size-width-card);
   --size-height-chest: calc(var(--size-width-card) * 0.8);
@@ -25,7 +25,12 @@ body {
   --black-card: black;
   --color-border: gray;
 
+
   font-family: 'Montserrat', 'Noto Emoji', sans-serif;
   font-weight: 600;
-  background-image: linear-gradient(135deg, blue, 75%, black);;
+
+  margin: 0;
+  min-height: 100vh;
+  background-image: linear-gradient(135deg, rgba(28,88,238,1) 0%,
+    rgba(0,39,137,1));
 }

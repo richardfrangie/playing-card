@@ -80,7 +80,7 @@ class PlayingCard extends HTMLElement {
     align-items: center;
 
     & :last-child {
-    transform: rotate(180deg);
+    transform: scale(1, -1);
     }
     }
 
@@ -93,14 +93,68 @@ class PlayingCard extends HTMLElement {
     }
 
     :host(:is([rank="4"], [rank="5"])) .container :nth-child(n+3) {
-    transform: rotate(180deg);
+    transform: scale(1, -1);
     }
 
     :host(:is([rank="6"], [rank="7"], [rank="8"],
     [rank="9"], [rank="10"])) .container :nth-child(n+5) {
-    transform: rotate(180deg);
+    transform: scale(1, -1);
     }
 
+    :host(:is([rank="4"], [rank="5"])) :is(.symbol:nth-child(3),
+    .symbol:nth-child(4)),
+    :host(:is([rank="6"], [rank="7"], [rank="8"])) :is(.symbol:nth-child(5),
+    .symbol:nth-child(6)) {
+    align-self: end;
+    }
+
+    :host(:is([rank="6"], [rank="7"], [rank="8"])) :is(.symbol:nth-child(3),
+    .symbol:nth-child(4)) {
+    align-self: center;
+    }
+
+    :host(:is([rank="5"], [rank="7"], [rank="8"], [rank="9"], [rank="10"]))
+    .symbol:last-child {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    }
+
+    :host([rank="9"]) .symbol:last-child {
+    transform: translate(-50%,-50%) scale(1, -1);
+    }
+
+    :host(:is([rank="7"], [rank="8"])) .symbol:last-child {top: 32%;}
+
+    :host([rank="8"]) .symbol:nth-child(7) {
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%,-50%) scale(1, -1);
+    }
+
+    :host([rank="10"]) .symbol:nth-child(9) {
+    position: absolute;
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%,-50%) scale(1, -1);
+    }
+
+    :host([rank="10"]) .symbol:last-child {top: 25%;}
+
+    :host(.flipped) {
+    background:
+    repeating-linear-gradient(45deg, var(--red-card), var(--black-card) 10%);
+
+    & .chest, & .container {
+    visibility: hidden;
+    }
+
+    &::before, &::after {
+    visibility: hidden;
+    }
+    }
 
     `;
   }
