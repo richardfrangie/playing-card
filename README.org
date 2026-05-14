@@ -1,0 +1,66 @@
+#+title: Playing Card
+#+date: <2026-05-14 Thu>
+#+author: Richard Frangie
+#+language: en
+
+#+html: <p align="center">
+#+html: <img alt="HTML" src="https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white">
+#+html: <img alt="CSS" src="https://img.shields.io/badge/CSS-%23643295?logo=css&logoColor=white">
+#+html: <img alt="JavaScript" src="https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black">
+#+html: <img alt="WebComponent" src="https://img.shields.io/badge/Web%20Components-000000?logo=webcomponentsdotorg&logoColor=white">
+#+html: </p>
+
+This project explores how to build a reusable playing-card component with Web Components. It's based on the [[https://github.com/richardfrangie/52-card-deck][Standard 52-Card Deck]] project, and focuses on component structure, styling, and layout techniques that can later be reused in a solitaire game.
+
+[[file:screenshots/playing-cards.png]]
+
+* Demo
+[[https://richardfrangie.github.io/playing-card/][Live demo →]]
+
+* What it covers
+- Built wih HTML, CSS & JS
+- Uses Web Components (Custom Elements, Shadow DOM)
+- Responsive card layout
+- Flexbox and CSS Grid for layout
+- Positioning and stacking contexts
+
+* Installation/Setup
+
+* Usage
+Use it like any other HTML element with the tag name ~playing-card~. It accepts two attributes and one optional class.
+
+The card size can be controlled with the custom property ~--size-width-card~.
+
+#+begin_src css
+
+  body {
+  --size-width-card: 200px;  /* fixed size */
+  /* or  */
+  --size-width-card: 10vw;   /* responsive size */
+  }
+
+#+end_src
+
+** Attributes:
+- suit :: sets the type of card. Valid values are ~diamond~, ~spade~, ~heart~, ~club~
+- rank :: sets the number of the card. Valid values range from ~1~ to ~13~
+
+** Classes
+- flipped :: turns the card over
+
+#+begin_src html
+
+  <!-- Diamond ♦ ace 1 card: -->
+  <playing-card suit="diamond" rank="1"></playing-card>
+  <!-- flipped card -->
+  <playing-card suit="diamond" rank="1" class="flipped"></playing-card>
+
+#+end_src
+
+* Status
+- Learning project
+- Verified on Chromium and Firefox
+
+* References
+- [[https://github.com/richardfrangie/52-card-deck][Standard 52-Card Deck]]
+- [[https://www.youtube.com/watch?v=_lGwyHDcKIc&t=10464s][ManzDev:  🃏 Grid + Flexbox: Creando cartas de poker con código CSS (y componentes)]]
