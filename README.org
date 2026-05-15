@@ -3,12 +3,10 @@
 #+author: Richard Frangie
 #+language: en
 
-#+html: <p align="center">
-#+html: <img alt="HTML" src="https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white">
-#+html: <img alt="CSS" src="https://img.shields.io/badge/CSS-%23643295?logo=css&logoColor=white">
-#+html: <img alt="JavaScript" src="https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black">
-#+html: <img alt="WebComponent" src="https://img.shields.io/badge/Web%20Components-000000?logo=webcomponentsdotorg&logoColor=white">
-#+html: </p>
+#+html: <span><img alt="HTML" src="https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white"></span>
+#+html: <span><img alt="CSS" src="https://img.shields.io/badge/CSS-%23643295?logo=css&logoColor=white"></span>
+#+html: <span><img alt="JavaScript" src="https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black"></span>
+#+html: <span><img alt="Web Components" src="https://img.shields.io/badge/Web%20Components-white?logo=webcomponents.org&logoColor=black"></span>
 
 This project explores how to build a reusable playing-card component with Web Components. It's based on the [[https://github.com/richardfrangie/52-card-deck][Standard 52-Card Deck]] project, and focuses on component structure, styling, and layout techniques that can later be reused in a solitaire game.
 
@@ -34,31 +32,31 @@ The card size can be controlled with the custom property ~--size-width-card~.
 #+begin_src css
 
   body {
-  --size-width-card: 200px;  /* fixed size */
+  --card-width: 200px;  /* fixed size */
   /* or  */
-  --size-width-card: 10vw;   /* responsive size */
+  --card-width: 10vw;   /* responsive size */
   }
 
 #+end_src
 
 ** Attributes:
-- suit :: sets the type of card. Valid values are ~diamond~, ~spade~, ~heart~, ~club~
-- rank :: sets the number of the card. Valid values range from ~1~ to ~13~
+- ~suit~: sets the type of card. Valid values are ~diamond~, ~spade~, ~heart~, ~club~
+- ~rank~: sets the number of the card. Valid values range from ~1~ to ~13~
+- ~flipped~: turns the card over. Boolean attribute
 
-** Classes
-- flipped :: turns the card over
+** Example of use
 
 #+begin_src html
 
-  <!-- Diamond ♦ ace 1 card: -->
+  <!-- Diamond ace -->
   <playing-card suit="diamond" rank="1"></playing-card>
-  <!-- flipped card -->
-  <playing-card suit="diamond" rank="1" class="flipped"></playing-card>
+
+  <!-- Flipped card -->
+  <playing-card suit="club" rank="13" flipped></playing-card>
 
 #+end_src
 
 * Status
-- Learning project
 - Verified on Chromium and Firefox
 
 * References
