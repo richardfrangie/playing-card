@@ -13,17 +13,22 @@
 }
 
 body {
-  --size-width-card: 200px; /* or 10vw (responsive) */
-  --size-height-card: calc(var(--size-width-card) * 1.4);
-  --size-width-chest: var(--size-width-card);
-  --size-height-chest: calc(var(--size-width-card) * 0.8);
-  --size-text: calc(var(--size-width-card) * 0.5);
-  --size-text-rank: calc(var(--size-text) / 2);
-  --rectangle: polygon(15% 0, 15% 100%, 85% 100%, 85% 0);
-  --color-card: white;
-  --red-card: red;
-  --black-card: black;
-  --color-border: gray;
+  /* card sizing */
+  --card-width: 200px; /* or 10vw (responsive) */
+  --card-height: calc(var(--card-width) * 1.4);
+  /* field area (where suit symbols go) */
+  --card-field-width: var(--card-width);
+  --card-field-height: calc(var(--card-width) * 0.8);
+
+  /* typography */
+  --card-font-size: calc(var(--card-width) * 0.5);
+  --card-rank-font-size: calc(var(--card-font-size) / 2);
+
+  /* colors */
+  --card-bg: white;
+  --card-color-red: red;
+  --card-color-black: black;
+  --card-border-color: gray;
 
 
   font-family: 'Montserrat', 'Noto Emoji', sans-serif;

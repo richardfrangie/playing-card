@@ -7,21 +7,23 @@ class PlayingCard extends HTMLElement {
   static get styles() {
     return /* css */`
     :host {
+    --card-field-clip-path: polygon(15% 0, 15% 100%, 85% 100%, 85% 0);
+
     display: inline-grid;
-    width: var(--size-width-card);
-    height: var(--size-height-card);
-    background: var(--color-card);
+    width: var(--card-width);
+    height: var(--card-height);
+    background: var(--card-bg);
     border-radius: 5%;
-    color: var(--red-card);
+    color: var(--card-color-red);
     margin: 1rem;
-    border: 1px solid var(--color-border);
+    border: 1px solid var(--card-border-color);
     user-select: none;
     align-items: center;
 
     &::before, &::after {
     content: var(--rank-suit);
     display: block;
-    font-size: var(--size-text-rank);
+    font-size: var(--card-rank-font-size);
     padding: 0 0.25rem;
     }
 
@@ -33,27 +35,27 @@ class PlayingCard extends HTMLElement {
     }
 
     :host([suit="club"]), :host([suit="spade"]) {
-    color: var(--black-card);
+    color: var(--card-color-black);
     }
 
     .container {
-    width: var(--size-width-chest);
-    height: var(--size-height-chest);
-    background: var(--color-card);
+    width: var(--card-field-width);
+    height: var(--card-field-height);
+    background: var(--card-bg);
     position: relative;
     }
 
     :host([rank="1"]) .container {
-    font-size: var(--size-text);
+    font-size: var(--card-font-size);
     text-align: center;
-    line-height: var(--size-height-chest);
+    line-height: var(--card-field-height);
     cursor: default;
     }
 
     :host(:is([rank="11"], [rank="12"], [rank="13"])) .container {
     background-position: 50% 50%;
     background-size: 150%;
-    clip-path: var(--rectangle);
+    clip-path: var(--card-field-clip-path);
     }
 
     :host([rank="11"]) .container {background-image: url("img/jack.png");}
@@ -61,11 +63,11 @@ class PlayingCard extends HTMLElement {
     :host([rank="13"]) .container {background-image: url("img/king.png");}
 
     .symbol {
-    width: calc(var(--size-height-chest) / 4);
-    height: calc(var(--size-height-chest) / 4);
-    font-size: calc(var(--size-text) / 3);
+    width: calc(var(--card-field-height) / 4);
+    height: calc(var(--card-field-height) / 4);
+    font-size: calc(var(--card-font-size) / 3);
     text-align: center;
-    line-height: calc(var(--size-height-chest) / 4);
+    line-height: calc(var(--card-field-height) / 4);
     }
 
     :host([suit="heart"]) .symbol::after {content: "♥";}
@@ -143,11 +145,12 @@ class PlayingCard extends HTMLElement {
 
     :host([rank="10"]) .symbol:last-child {top: 25%;}
 
-    :host(.flipped) {
+    :host([flipped]) {
     background:
-    repeating-linear-gradient(45deg, var(--red-card), var(--black-card) 10%);
+    repeating-linear-gradient(45deg, var(--card-color-red),
+    var(--card-color-black) 10%);
 
-    & .chest, & .container {
+    & .container {
     visibility: hidden;
     }
 
@@ -176,6 +179,10 @@ class PlayingCard extends HTMLElement {
     return display[rank] || rank.toString();
   }
 
+  static get observedAttributes() {
+    return ['rank'];
+  }
+
   populateContainer(container) {
     if (this.rank == 1) container.textContent = this.suit;
     if (this.rank >= 2 && this.rank <= 10) {
@@ -194,13 +201,31 @@ class PlayingCard extends HTMLElement {
     return container;
   }
 
-  connectedCallback() {
-    this.suit = PlayingCard.symbol(this.getAttribute('suit'));
-    this.rank = PlayingCard.normalizeRank(this.getAttribute('rank'));
+  setSuit() {
+    const suitAttr = this.getAttribute('suit') || 'diamond';
+    this.setAttribute('suit', suitAttr);
+    this.suit = PlayingCard.symbol(suitAttr);
+  }
+
+  setRank() {
+    const rankAttr = this.getAttribute('rank');
+    this.rank = PlayingCard.normalizeRank(rankAttr);
     this.setAttribute('rank', this.rank);
     this.rankDisplay = PlayingCard.getRankDisplay(this.rank)
     this.style.setProperty('--rank-suit',`"${this.rankDisplay}${this.suit}"`);
+  }
+
+  connectedCallback() {
+    this.setSuit();
+    this.setRank();
     this.render();
+  }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (oldValue !== newValue) {
+      this.setRank();
+      this.render();
+    }
   }
 
   render() {
@@ -208,7 +233,6 @@ class PlayingCard extends HTMLElement {
     <style>${PlayingCard.styles}</style>`;
     const container = this.createContainer();
     this.shadowRoot.appendChild(container);
-    console.log(this);
   }
 }
 
